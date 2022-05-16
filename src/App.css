@@ -145,3 +145,20 @@
   background-color: #006edc;
   color: white;
 }
+
+.btn:hover {
+  background-color: #1087ff;
+}
+
+.top-text {
+  background-color: #a81c07;
+  top:0;
+  padding-top:0;
+  padding-bottom: 10px;
+  position: relative;
+  margin-top:-8px;
+  margin-left: -8px;
+  width: 100%;
+  font-size: 40px;
+  color: white;
+}
