@@ -1,13 +1,10 @@
-import './App.css';
+import Main from './Main.js';
 
-import Mycalendar from './Calender';
-
-function App() {
-  
+function App(p) {
 
   return (
     <div className="App">
-      <Mycalendar/>
+      <Main />
     </div>
   );
 }
