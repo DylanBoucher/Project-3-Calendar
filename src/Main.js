@@ -8,6 +8,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import React, { useState, useEffect } from 'react'
 import Event from './Event';
 import 'react-datepicker/src/stylesheets/datepicker.scss'
+import EditModal from './EditModal';
+import DatePicker from 'react-datepicker'
 
 const locales = {
   "en-US": require("date-fns/locale/en-US")
@@ -41,25 +43,57 @@ const events = [
   },
 ]
 
-let selected = document.getElementsByClassName('rbc-event rbc-selected')
+// let selected = document.getElementsByClassName('rbc-event rbc-selected')
 
 function Main() {
   const [newEvent, setNewEvent] = useState({title: '', start: '', end: ''})
   const [allEvents, setAllEvents] = useState(events) //Change useState(events) to useState([]) at end
-  
-  const click = () => {
-    for (let i = 0; i < selected.length; i++) {
-      // console.log(selected[i].parentNode.removeChildren(selected[i]))
-      // console.log(selected.splice(0, selected.length))
-    } 
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState(null)
+
+  const handleEditEvent = () => {
+    console.log(allEvents)
+    console.log(selectedEvent.index)
+    setAllEvents([...allEvents, selectedEvent])
+  }
+
+  const deleteEvent = (e) => {
+    console.log(e.target)
+  }
+
+  const handleSelectedEvent = (event) => {
+    setSelectedEvent(event)
+    setIsOpen(true)
   }
 
   return (
     <div className="App">
       <h1 className='top-text'>Calendar</h1>
-      <button onClick={click}>Delete Event</button>
+      {selectedEvent ? 
+      <EditModal open={isOpen}>
+        <h1 className='modal-h1'>Edit Event</h1>
+        {/* {console.log(selectedEvent.title)} */}
+        
+        <div className='modal-container'>
+            <label for='title'>Title:</label>
+            <input id='title' type='text' placeholder='Add Title'  value={selectedEvent.title} onChange={(e) => setSelectedEvent({...selectedEvent, title: e.target.value})}/>
+
+            <label for='start'>Start Date:</label>
+            <DatePicker id='start' placeholderText='Start Date'  selected={selectedEvent.start}  onChange={(start) => setSelectedEvent({...selectedEvent, start})}/>
+
+            <label for='end'>End Date:</label>
+            <DatePicker id='end' placeholderText='End Date' selected={selectedEvent.end}  onChange={(end) => setSelectedEvent({...selectedEvent, end})} />
+
+            <div className='btn-container'>
+                <button onClick={() => setIsOpen(false)} className='close-btn'>Close</button>
+                <button onClick={deleteEvent} className='delete-btn'>Delete</button>
+                <button onClick={handleEditEvent} className='add-btn'>Edit Event</button>
+            </div>
+          </div>
+      </EditModal> : null}
+
       <Event newEvent={newEvent} setNewEvent={setNewEvent} allEvents={allEvents} setAllEvents={setAllEvents}/>
-      <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{height: 800, margin: "25px"}} />
+      <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" onSelectEvent={(e) => handleSelectedEvent(e)} style={{height: 800, margin: "25px"}} />
     </div>
   );
 }
