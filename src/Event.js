@@ -21,13 +21,13 @@ function Event(props) {
             <Modal open={isOpen}>
                 <h1 className='modal-h1'>New Event</h1>
                 <div className='modal-container'>
-                    <label for='title'>Title:</label>
+                    <label htmlFor='title'>Title:</label>
                     <input id='title' type='text' placeholder='Add Title'  value={newEvent.title} onChange={(e) => setNewEvent({...newEvent, title: e.target.value})}/>
 
-                    <label for='start'>Start Date:</label>
+                    <label htmlFor='start'>Start Date:</label>
                     <DatePicker id='start' placeholderText='Start Date'  selected={newEvent.start}  onChange={(start) => setNewEvent({...newEvent, start})}/>
 
-                    <label for='end'>End Date:</label>
+                    <label htmlFor='end'>End Date:</label>
                     <DatePicker id='end' placeholderText='End Date' selected={newEvent.end}  onChange={(end) => setNewEvent({...newEvent, end})} />
 
                     <div className='btn-container'>

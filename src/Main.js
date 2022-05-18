@@ -10,6 +10,7 @@ import Event from './Event';
 import 'react-datepicker/src/stylesheets/datepicker.scss'
 import EditModal from './EditModal';
 import DatePicker from 'react-datepicker'
+import axios from 'axios';
 
 const locales = {
   "en-US": require("date-fns/locale/en-US")
@@ -23,10 +24,13 @@ const localizer = dateFnsLocalizer({
   locales
 })
 
-const events = [
+
+
+
+
+let events = [
   {
     title: "Big Meeting",
-    allDay: true,
     start: new Date(2022, 4, 7),
     end: new Date(2022, 4, 10)
   },
@@ -37,23 +41,47 @@ const events = [
   },
   {
     title: "Conference",
-    allDay: true,
     start: new Date(2022, 4, 25),
     end: new Date(2022, 4, 30)
   },
 ]
 
 // let selected = document.getElementsByClassName('rbc-event rbc-selected')
-
+  
 function Main() {
   const [newEvent, setNewEvent] = useState({title: '', start: '', end: ''})
   const [allEvents, setAllEvents] = useState(events) //Change useState(events) to useState([]) at end
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedEvent, setSelectedEvent] = useState(null)
+  const [selectedEvent, setSelectedEvent] = useState({})
+  const getData = ()  => {
+    axios.get(`https://calendarific.com/api/v2/holidays?api_key=2c11d4799f6acc5a223955da9f66d10bbed87f0e&country=US&year=2022`)
+    .then(res => {
+      let holidays = res.data.response.holidays
+      for(let i = 0; i < holidays.length; i++){
+        const cal_holidays = [{title: holidays[i].name, start: holidays[i].date.iso, end: holidays[i].date.iso}]
+        //setNewEvent(newEvent.title= holidays[i].name, newEvent.start= holidays[i].date.iso, newEvent.end= holidays[i].date.iso)
+       //setNewEvent(...newEvent, cal_holidays[0])
+        // setAllEvents([...allEvents, newEvent.title= holidays[i].name, newEvent.start= holidays[i].date.iso, newEvent.end= holidays[i].date.iso])
+        setAllEvents([...allEvents, cal_holidays[0]])
+        //console.log(newEvent)
+        // console.log(allEvents)
+        
+        console.log(allEvents)
+      }
+      
+    })
+    .catch(error => console.log(error))
+  }
 
-  const handleEditEvent = () => {
+  useEffect(() => {
+    getData()
+  }, [])
+  const handleEditEvent = (e) => {
+    console.log(e.target)
     console.log(allEvents)
-    console.log(selectedEvent.index)
+    console.log(selectedEvent)
+    console.log(allEvents.indexOf(selectedEvent))
+    console.log(allEvents[2])
     setAllEvents([...allEvents, selectedEvent])
   }
 
@@ -68,26 +96,26 @@ function Main() {
 
   return (
     <div className="App">
+      
       <h1 className='top-text'>Calendar</h1>
+
       {selectedEvent ? 
       <EditModal open={isOpen}>
         <h1 className='modal-h1'>Edit Event</h1>
-        {/* {console.log(selectedEvent.title)} */}
-        
         <div className='modal-container'>
-            <label for='title'>Title:</label>
+            <label htmlFor='title'>Title:</label>
             <input id='title' type='text' placeholder='Add Title'  value={selectedEvent.title} onChange={(e) => setSelectedEvent({...selectedEvent, title: e.target.value})}/>
 
-            <label for='start'>Start Date:</label>
+            <label htmlFor='start'>Start Date:</label>
             <DatePicker id='start' placeholderText='Start Date'  selected={selectedEvent.start}  onChange={(start) => setSelectedEvent({...selectedEvent, start})}/>
 
-            <label for='end'>End Date:</label>
+            <label htmlFor='end'>End Date:</label>
             <DatePicker id='end' placeholderText='End Date' selected={selectedEvent.end}  onChange={(end) => setSelectedEvent({...selectedEvent, end})} />
 
             <div className='btn-container'>
-                <button onClick={() => setIsOpen(false)} className='close-btn'>Close</button>
+                <button onClick={() => setIsOpen(false)} className='close-btn'>Cancel</button>
                 <button onClick={deleteEvent} className='delete-btn'>Delete</button>
-                <button onClick={handleEditEvent} className='add-btn'>Edit Event</button>
+                <button onClick={handleEditEvent} className='add-btn'>Edit</button>
             </div>
           </div>
       </EditModal> : null}
