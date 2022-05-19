@@ -46,6 +46,7 @@ function Main() {
   const [allEvents, setAllEvents] = useState(events)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState({})
+  const [previousEvent, setPreviousEvent] = useState()
 
   // useEffect(() => {
   //   const getData = async() => {
@@ -65,11 +66,8 @@ function Main() {
   // }, [])
 
   const handleEditEvent = () => {
-    console.log(allEvents)
-    console.log(selectedEvent)
-    setAllEvents([...allEvents, selectedEvent])
-    console.log(allEvents.indexOf(selectedEvent))
-    
+    allEvents.splice(previousEvent, 1, selectedEvent)
+    setIsOpen(false)
   }
 
   const deleteEvent = () => {
@@ -79,8 +77,10 @@ function Main() {
 
   const handleSelectedEvent = (event) => {
     setSelectedEvent(event)
+    setPreviousEvent(allEvents.indexOf(event))
     setIsOpen(true)
   }
+  
 
   return (
     <div className="App">
