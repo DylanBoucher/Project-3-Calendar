@@ -2,6 +2,8 @@ Project 3: Calendar
 
 You can add, edit, and delete events. Events can be put across several days or even months. Switch from month, week, day, or agenda view. You can change which month you are looking at and then click on the "Today" button to bring you back to the current date.
 
+Used the react-big-calendar and react-datepicker libraries in this project.
+
 Netlify url: https://project-3-calendar.netlify.app/
 
 Calendar Main Page: ![Calendar main page](https://user-images.githubusercontent.com/99612054/169418931-12e1c40a-216b-4aa4-9008-685757547b79.png)
