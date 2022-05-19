@@ -1,10 +1,11 @@
 import './App.css';
+import './index.css'
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
 import format from 'date-fns/format'
 import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
-import 'react-big-calendar/lib/css/react-big-calendar.css'
+//import 'react-big-calendar/lib/css/react-big-calendar.css'
 import React, { useState, useEffect } from 'react'
 import Event from './Event';
 import 'react-datepicker/src/stylesheets/datepicker.scss'
@@ -71,7 +72,7 @@ function Main() {
 
   return (
     <div className="App">
-      <h1 className='top-text'>Calendar</h1>
+      {/* <h1 className='top-text'>Calendar</h1> */}
 
       {selectedEvent ? 
         <EditEvent 
