@@ -56,7 +56,7 @@ function Main() {
   //         let holidays = data.response.holidays
   //         const rendered_holidays = holidays.map((e) => {
   //           return (
-  //             {title: e.name, start: new Date(e.date.iso), end: new Date(e.date.iso), allday: true}
+  //             {title: e.name, start: new Date(e.date.iso), end: new Date(e.date.iso), allDay: true}
   //           )
   //         }) 
   //         setAllEvents(...allEvents, rendered_holidays)
@@ -90,10 +90,15 @@ function Main() {
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('calendar_events'))
     data.map(e => {
-      e.start = new Date(e.start)
-      e.end = new Date(e.end)
+      return(
+        <>
+        {e.start = new Date(e.start)}
+        {e.end = new Date(e.end)}
+        </>
+      )
     })
     setAllEvents(...allEvents, data)
+    console.log(allEvents)
   }, [])
 
   useEffect(() => {
