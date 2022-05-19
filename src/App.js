@@ -1,7 +1,6 @@
 import Main from './Main.js';
 
-function App(p) {
-
+function App() {
   return (
     <div className="App">
       <Main />

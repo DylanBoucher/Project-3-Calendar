@@ -40,7 +40,6 @@ function EditEvent(props) {
             <button onClick={deleteEvent} className='delete-btn'>Delete</button>
           </div>
       </EditEventModal>
-    
   )
 }
 

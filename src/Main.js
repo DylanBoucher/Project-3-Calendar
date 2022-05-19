@@ -52,8 +52,6 @@ function Main() {
     setIsOpen(true)
   }
 
-  
-
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('calendar_events'))
     data.map(e => {
@@ -65,6 +63,7 @@ function Main() {
       )
     })
     setAllEvents(...allEvents, data)
+    //eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -73,8 +72,6 @@ function Main() {
 
   return (
     <div className="App">
-      {/* <h1 className='top-text'>Calendar</h1> */}
-
       {selectedEvent ? 
         <EditEvent 
           selectedEvent={selectedEvent} 
