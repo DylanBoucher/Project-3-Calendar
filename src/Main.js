@@ -23,27 +23,27 @@ const localizer = dateFnsLocalizer({
   locales
 })
 
-let events = [
-  {
-    title: "Big Meeting",
-    start: new Date(2022, 4, 7),
-    end: new Date(2022, 4, 10)
-  },
-  {
-    title: "Vacation",
-    start: new Date(2022, 4, 20),
-    end: new Date(2022, 4, 23)
-  },
-  {
-    title: "Conference",
-    start: new Date(2022, 4, 25),
-    end: new Date(2022, 4, 30)
-  },
-]
+// let events = [
+//   {
+//     title: "Big Meeting",
+//     start: new Date(2022, 4, 7),
+//     end: new Date(2022, 4, 10)
+//   },
+//   {
+//     title: "Vacation",
+//     start: new Date(2022, 4, 20),
+//     end: new Date(2022, 4, 23)
+//   },
+//   {
+//     title: "Conference",
+//     start: new Date(2022, 4, 25),
+//     end: new Date(2022, 4, 30)
+//   },
+// ]
   
 function Main() {
   const [newEvent, setNewEvent] = useState({title: '', start: '', end: ''})
-  const [allEvents, setAllEvents] = useState(events)
+  const [allEvents, setAllEvents] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState({})
   const [previousEvent, setPreviousEvent] = useState()
@@ -59,7 +59,7 @@ function Main() {
   //             {title: e.name, start: new Date(e.date.iso), end: new Date(e.date.iso)}
   //           )
   //         }) 
-  //         setAllEvents(rendered_holidays)
+  //         setAllEvents(...allEvents, rendered_holidays)
   //       })
   //   }
   //   getData()
@@ -71,6 +71,9 @@ function Main() {
   }
 
   const deleteEvent = () => {
+    const data = JSON.parse(localStorage.getItem('calendar_events'))
+    data.splice(data.indexOf(selectedEvent), 1)
+    localStorage.setItem('calendar_events', JSON.stringify(data))
     allEvents.splice(allEvents.indexOf(selectedEvent), 1)
     setIsOpen(false)
   }
@@ -81,6 +84,18 @@ function Main() {
     setIsOpen(true)
   }
   
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('calendar_events'))
+    data.map(e => {
+      e.start = new Date(e.start)
+      e.end = new Date(e.end)
+    })
+    setAllEvents(...allEvents, data)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('calendar_events', JSON.stringify(allEvents))
+  }, [allEvents])
 
   return (
     <div className="App">

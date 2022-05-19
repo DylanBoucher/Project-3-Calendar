@@ -9,6 +9,7 @@ function Event(props) {
 
     const handleAddEvent = () => {
         setAllEvents([...allEvents, newEvent])
+        setIsOpen(false)
       }
 
     return (
@@ -25,7 +26,7 @@ function Event(props) {
                     </div>
 
                     <h1 className='modal-h1'>New Event</h1><hr/>
-                    
+
                     <div className='modal-container'>
                         <input id='title' type='text' placeholder='Add Title'  value={newEvent.title} onChange={(e) => setNewEvent({...newEvent, title: e.target.value})}/>
 
