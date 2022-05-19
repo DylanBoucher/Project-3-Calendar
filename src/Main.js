@@ -56,7 +56,7 @@ function Main() {
   //         let holidays = data.response.holidays
   //         const rendered_holidays = holidays.map((e) => {
   //           return (
-  //             {title: e.name, start: new Date(e.date.iso), end: new Date(e.date.iso)}
+  //             {title: e.name, start: new Date(e.date.iso), end: new Date(e.date.iso), allday: true}
   //           )
   //         }) 
   //         setAllEvents(...allEvents, rendered_holidays)
@@ -66,6 +66,9 @@ function Main() {
   // }, [])
 
   const handleEditEvent = () => {
+    const data = JSON.parse(localStorage.getItem('calendar_events'))
+    data.splice(data.indexOf(previousEvent), 1, selectedEvent)
+    localStorage.setItem('calendar_events', JSON.stringify(data))
     allEvents.splice(previousEvent, 1, selectedEvent)
     setIsOpen(false)
   }

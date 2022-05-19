@@ -11,16 +11,21 @@
 
 /* Add Event Button Styling */
 .add-event {
-  background-color: #3174ad;
-  border: 1px solid lightgray;
-  color: white;
-  border-radius: 5px;
-  font-size: 20px;
-  padding: 3px 5px;
+  background-color: white;
+  border: 1px solid #3174ad;
+  color: #3174ad;
+  font-size: 25px;
+  padding: 6px 10px;
 }
 
 .add-event:hover {
+ opacity: 70%;
+}
+
+.add-event:active {
   background-color: #428ccc;
+  color: white;
+  opacity: 100%;
 }
 
 .add-btn:hover, .close-btn:hover {
