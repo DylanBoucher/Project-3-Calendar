@@ -10,7 +10,7 @@ import Event from './Event';
 import 'react-datepicker/src/stylesheets/datepicker.scss'
 import EditModal from './EditModal';
 import DatePicker from 'react-datepicker'
-import axios from 'axios';
+// import axios from 'axios';
 
 const locales = {
   "en-US": require("date-fns/locale/en-US")
@@ -23,10 +23,6 @@ const localizer = dateFnsLocalizer({
   getDay,
   locales
 })
-
-
-
-
 
 let events = [
   {
@@ -50,32 +46,62 @@ let events = [
   
 function Main() {
   const [newEvent, setNewEvent] = useState({title: '', start: '', end: ''})
-  const [allEvents, setAllEvents] = useState(events) //Change useState(events) to useState([]) at end
+  const [allEvents, setAllEvents] = useState([]) //Change useState(events) to useState([]) at end
   const [isOpen, setIsOpen] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState({})
-  const getData = ()  => {
-    axios.get(`https://calendarific.com/api/v2/holidays?api_key=2c11d4799f6acc5a223955da9f66d10bbed87f0e&country=US&year=2022`)
-    .then(res => {
-      let holidays = res.data.response.holidays
-      for(let i = 0; i < holidays.length; i++){
-        const cal_holidays = [{title: holidays[i].name, start: holidays[i].date.iso, end: holidays[i].date.iso}]
-        //setNewEvent(newEvent.title= holidays[i].name, newEvent.start= holidays[i].date.iso, newEvent.end= holidays[i].date.iso)
-       //setNewEvent(...newEvent, cal_holidays[0])
-        // setAllEvents([...allEvents, newEvent.title= holidays[i].name, newEvent.start= holidays[i].date.iso, newEvent.end= holidays[i].date.iso])
-        setAllEvents([...allEvents, cal_holidays[0]])
-        //console.log(newEvent)
-        // console.log(allEvents)
-        
-        console.log(allEvents)
-      }
-      
-    })
-    .catch(error => console.log(error))
-  }
 
   useEffect(() => {
+    const getData = async() => {
+      await fetch(`https://calendarific.com/api/v2/holidays?api_key=122a5d6b2dc60efaa9d101d028323e566bfedeca&country=US&year=2022`)
+        .then(response => response.json())
+        .then(data => {
+          let holidays = data.response.holidays
+          
+        const rendered_holidays = holidays.map((e) => {
+          // let title = e.name
+          // let start =  new Date(e.date.iso)
+          // let end = new Date(e.date.iso)
+           
+          
+          return (
+            {title: e.name, start: new Date(e.date.iso), end: new Date(e.date.iso)}
+          )
+
+          
+        }) 
+        setAllEvents(rendered_holidays)
+        
+        console.log(allEvents)
+          // setAllEvents([rendered_holidays])
+          // allEvents.forEach(e => {
+          //   console.log(e)
+          //   e.forEach(b => {
+          //     console.log(b.cal_holidays)
+          //     setAllEvents([b.cal_holidays])
+          //     console.log(allEvents)
+          //   })
+          // })
+          
+          
+
+          // holidays.map((e, idx) => {
+          //   let title = e.name
+          //   let start =  new Date(e.date.iso)
+          //   let end = new Date(e.date.iso)
+          //   const cal_holidays = [{title: title, start: start, end: end}]
+          //   //console.log(cal_holidays)   
+          //   return(
+          //     <>        
+          //     </>
+          //   ) 
+          // })
+          
+          //console.log(allEvents)
+        })
+    }
     getData()
   }, [])
+
   const handleEditEvent = (e) => {
     console.log(e.target)
     console.log(allEvents)
@@ -96,7 +122,6 @@ function Main() {
 
   return (
     <div className="App">
-      
       <h1 className='top-text'>Calendar</h1>
 
       {selectedEvent ? 
