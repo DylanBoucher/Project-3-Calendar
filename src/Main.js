@@ -29,23 +29,23 @@ function Main() {
   const [selectedEvent, setSelectedEvent] = useState({})
   const [previousEvent, setPreviousEvent] = useState()
 
-  useEffect(() => {
-    const getData = async() => {
-      await fetch(`https://calendarific.com/api/v2/holidays?api_key=122a5d6b2dc60efaa9d101d028323e566bfedeca&country=US&year=2022`)
-        .then(response => response.json())
-        .then(data => {
-          let holidays = data.response.holidays
-          const rendered_holidays = holidays.map((e) => {
-            return (
-              {title: e.name, start: new Date(e.date.iso), end: new Date(e.date.iso), allDay: true}
-            )
-          }) 
-          setAllEvents(...allEvents, rendered_holidays)
-        })
-    }
-    getData()
-    //eslint-disable-next-line
-  }, [])
+  // useEffect(() => {
+  //   const getData = async() => {
+  //     await fetch(`https://calendarific.com/api/v2/holidays?api_key=122a5d6b2dc60efaa9d101d028323e566bfedeca&country=US&year=2022`)
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         let holidays = data.response.holidays
+  //         const rendered_holidays = holidays.map((e) => {
+  //           return (
+  //             {title: e.name, start: new Date(e.date.iso), end: new Date(e.date.iso), allDay: true}
+  //           )
+  //         }) 
+  //         setAllEvents(...allEvents, rendered_holidays)
+  //       })
+  //   }
+  //   getData()
+  //   //eslint-disable-next-line
+  // }, [])
 
   const handleSelectedEvent = (event) => {
     setSelectedEvent(event)
@@ -54,16 +54,19 @@ function Main() {
   }
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('calendar_events'))
-    data.map(e => {
-      return(
-        <>
-        {e.start = new Date(e.start)}
-        {e.end = new Date(e.end)}
-        </>
-      )
-    })
-    setAllEvents(...allEvents, data)
+    const grabData = async() => {
+      const data = await JSON.parse(localStorage.getItem('calendar_events'))
+      data.map(e => {
+        return(
+          <>
+          {e.start = new Date(e.start)}
+          {e.end = new Date(e.end)}
+          </>
+        )
+      })
+      setAllEvents(...allEvents, data)
+      }
+    grabData()
     //eslint-disable-next-line
   }, [])
 
