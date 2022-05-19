@@ -19,8 +19,16 @@
   padding: 3px 5px;
 }
 
-.add-event:hover, .add-btn:hover, .close-btn:hover {
+.add-event:hover {
   background-color: #428ccc;
+}
+
+.add-btn:hover, .close-btn:hover {
+  opacity: 70%;
+}
+
+.add-btn:active, .close-btn:active {
+  opacity: 60%;
 }
 
 .open-btn {
@@ -31,24 +39,19 @@
 
 /* Close button styling */
 .close-btn, .add-btn {
-  background-color:#3174ad;
-  border: 1px solid lightgray;
+  background-color: white;
+  border: none;
   border-radius: 5px;
-  font-size: 15px;
-  color: white;
-  bottom: 0;
-}
-
-.close-btn {
-  margin-top: 0px;
-  padding-top: 0;
+  font-size: 20px;
+  color: #3174ad;
+  margin: 0  0 10px 0;
 }
 
 /* Add button */
 .btn-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  
 }
 
 /* Modal container */
@@ -58,18 +61,33 @@
 }
 
 input {
-  margin: 15px;
-  border: 1px solid lightgray;
+  margin: 20px 10px;
+  border: none;
+  border-bottom: 1px solid lightgray;
   height: 20px;
   width: 250px;
-}
-
-input:hover {
-  border: 1px solid #3174ad;
+  font-size: 17px;
 }
 
 .modal-h1 {
   text-align: center;
-  margin-top: 0;
+  margin-top: 10px;
   padding-top: 0;
+}
+
+.delete-btn {
+  background-color: white;
+  border: 1px solid red;
+  color: red;
+  padding: 5px 20px;
+  font-size: 20px ;
+}
+
+.delete-btn:hover {
+  opacity: 60%;
+}
+
+.delete-btn:active {
+  background-color: red;
+  color: white;
 }
