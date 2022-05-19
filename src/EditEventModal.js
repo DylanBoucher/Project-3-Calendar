@@ -21,7 +21,7 @@ const OVERLAY_STYLES ={
   zIndex: 1000
 }
 
-function EditModal({ open, children }) {
+function EditEventModal({ open, children }) {
   if(!open) return null
   return (
     <>
@@ -33,4 +33,4 @@ function EditModal({ open, children }) {
   )
 }
 
-export default EditModal
+export default EditEventModal
