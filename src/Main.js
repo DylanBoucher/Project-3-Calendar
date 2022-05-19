@@ -5,7 +5,6 @@ import format from 'date-fns/format'
 import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
-//import 'react-big-calendar/lib/css/react-big-calendar.css'
 import React, { useState, useEffect } from 'react'
 import Event from './Event';
 import 'react-datepicker/src/stylesheets/datepicker.scss'
@@ -52,7 +51,9 @@ function Main() {
     setPreviousEvent(allEvents.indexOf(event))
     setIsOpen(true)
   }
+
   
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('calendar_events'))
     data.map(e => {

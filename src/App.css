@@ -19,8 +19,8 @@
 }
 
 .add-event:hover {
- opacity: 70%;
- transform: scale(1.1);
+ /* opacity: 70%; */
+ transform: scale(1.2);
 }
 
 .add-event:active {
@@ -30,7 +30,7 @@
 }
 
 .add-btn:hover, .close-btn:hover {
-  opacity: 70%;
+  opacity: 80%;
   transform: scale(1.1);
 }
 
@@ -80,6 +80,7 @@ input {
   text-align: center;
   margin-top: 10px;
   padding-top: 0;
+  font-size: 20px;
 }
 
 .delete-btn {
@@ -91,7 +92,7 @@ input {
 }
 
 .delete-btn:hover {
-  opacity: 60%;
+  opacity: 70%;
   transform: scale(1.1);
 }
 
