@@ -222,7 +222,6 @@ span {
 }
 
 .rbc-toolbar button:hover {
-  /* border: 1px solid #a335be; */
   transform: scale(1.2);
 }
 
