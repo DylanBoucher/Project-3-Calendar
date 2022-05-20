@@ -10,6 +10,7 @@ import Event from './Event';
 import 'react-datepicker/src/stylesheets/datepicker.scss'
 import EditEvent from './EditEvent';
 
+
 const locales = {
   "en-US": require("date-fns/locale/en-US")
 }
@@ -22,7 +23,7 @@ const localizer = dateFnsLocalizer({
   locales
 })
   
-function Main() {
+const Main = () => {
   const [newEvent, setNewEvent] = useState({title: '', start: '', end: ''})
   const [allEvents, setAllEvents] = useState([])
   const [isOpen, setIsOpen] = useState(false)
@@ -31,7 +32,7 @@ function Main() {
 
   useEffect(() => {
     const getData = async() => {
-      await fetch(`https://calendarific.com/api/v2/holidays?api_key=122a5d6b2dc60efaa9d101d028323e566bfedeca&country=US&year=2022`)
+      await fetch(`https://calendarific.com/api/v2/holidays?api_key=${process.env.REACT_APP_KEY}&country=US&year=2022`)
         .then(response => response.json())
         .then(data => {
           let holidays = data.response.holidays
